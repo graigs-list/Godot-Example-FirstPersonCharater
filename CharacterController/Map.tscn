@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://6kg62g0e31oo"]
+
+[ext_resource type="PackedScene" uid="uid://dw8qqlmkpqtjv" path="res://Player.tscn" id="1_1xuir"]
+[ext_resource type="Script" path="res://GameManager.gd" id="1_58ehr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hlb4k"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uniqj"]
+size = Vector3(100, 1, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e72pn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hggyj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2cn6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hcufb"]
+
+[sub_resource type="Sky" id="Sky_24mi7"]
+sky_material = SubResource("ProceduralSkyMaterial_hcufb")
+
+[sub_resource type="Environment" id="Environment_jx70a"]
+background_mode = 2
+sky = SubResource("Sky_24mi7")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_58ehr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_hlb4k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_uniqj")
+
+[node name="Player" parent="." instance=ExtResource("1_1xuir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.880055, -0.228909, -0.416057, 0.474872, 0.424225, 0.771058, 0, -0.876147, 0.482044, 0, 10, 0.115411)
+light_energy = 2.374
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 10)
+mesh = SubResource("BoxMesh_e72pn")
+surface_material_override/0 = SubResource("StandardMaterial3D_hggyj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_j2cn6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jx70a")

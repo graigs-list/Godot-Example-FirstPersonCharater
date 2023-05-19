@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw8qqlmkpqtjv"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_bkjyq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jpb50"]
+height = 3.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m7y1w"]
+height = 3.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lum3k"]
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_bkjyq")
+SPEED = 4
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+fov = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jpb50")
+
+[node name="MeshInstance3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_m7y1w")
+
+[node name="MeshInstance3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("CylinderShape3D_lum3k")
